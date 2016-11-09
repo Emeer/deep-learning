@@ -1,8 +1,5 @@
 package com.eztech.deep.learning.config;
 
-import java.io.IOException;
-import java.security.PrivilegedAction;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -15,6 +12,9 @@ import org.springframework.data.hadoop.config.annotation.SpringHadoopConfigurerA
 import org.springframework.data.hadoop.config.annotation.builders.HadoopConfigConfigurer;
 import org.springframework.data.hadoop.fs.FsShell;
 import org.springframework.data.hadoop.hbase.HbaseTemplate;
+
+import java.io.IOException;
+import java.security.PrivilegedAction;
 
 /**
  * Hadoop Configuration.

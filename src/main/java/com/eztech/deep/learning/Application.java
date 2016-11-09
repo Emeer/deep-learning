@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
  * @author Jia ZHOU
  */
 @SpringBootApplication
-@Import(HadoopConfig.class)
+@Import({HadoopConfig.class})
 public class Application {
 
     /**
