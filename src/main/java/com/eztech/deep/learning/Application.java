@@ -14,11 +14,14 @@ import org.springframework.context.annotation.Import;
 @Import({HadoopConfig.class})
 public class Application {
 
-    /**
-     * @param args
-     */
+    /** @param args */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
 }
+
+
+
+
+
