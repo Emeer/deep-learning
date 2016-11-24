@@ -29,6 +29,7 @@ public class HadoopConfig extends SpringHadoopConfigurerAdapter {
 
 
     /**
+     * @param config
      * {@inheritDoc}
      */
     @Override
@@ -81,4 +82,9 @@ public class HadoopConfig extends SpringHadoopConfigurerAdapter {
     }
 
 }
+
+
+
+
+
 
