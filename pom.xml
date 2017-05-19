@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.eztech</groupId>
-    <artifactId>deep-learning</artifactId>
+    <artifactId>eztech-deep-learning</artifactId>
     <version>0.1-SNAPSHOT</version>
 
     <dependencyManagement>
