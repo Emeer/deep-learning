@@ -1,6 +1,7 @@
 package com.eztech.deep.learning;
 
-import com.eztech.deep.learning.config.HadoopConfig;
+import com.eztech.deep.learning.config.KafkaConsumerConfig;
+import com.eztech.deep.learning.config.KafkaProducerConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
@@ -11,10 +12,10 @@ import org.springframework.context.annotation.Import;
  * @author Jia ZHOU
  */
 @SpringBootApplication
-@Import({HadoopConfig.class})
+@Import({KafkaConsumerConfig.class, KafkaProducerConfig.class})
 public class Application {
 
-    /** @param args */
+    /** @param args  */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

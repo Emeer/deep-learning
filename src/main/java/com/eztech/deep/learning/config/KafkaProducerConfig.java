@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by jiazhou on 2017/5/21.
+ * Kafka Producer Config.
  */
 @Configuration
 @EnableKafka
