@@ -19,7 +19,6 @@
 
     <dependencies>
 
-
         <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -75,6 +74,18 @@
             <artifactId>spring-kafka-test</artifactId>
             <version>1.2.1.RELEASE</version>
             <scope>test</scope>
+        </dependency>
+
+        <!--Deeplearning4j -->
+        <dependency>
+            <groupId>org.deeplearning4j</groupId>
+            <artifactId>deeplearning4j-core</artifactId>
+            <version>0.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.deeplearning4j</groupId>
+            <artifactId>deeplearning4j-ui_2.11</artifactId>
+            <version>0.8.0</version>
         </dependency>
 
         <!-- Spring boot-->
