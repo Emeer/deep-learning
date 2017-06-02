@@ -47,10 +47,18 @@ public class ApplicationTest {
 
     @Test
     public void testReceive() throws Exception {
-        sender.send(AllSpringKafkaTests.RECEIVER_TOPIC, "Hello Spring Kafka!");
+        sender.send(AllSpringKafkaTests.RECEIVER_TOPIC, getDetection());
 
         receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
         // check that the message was received
         assertThat(receiver.getLatch().getCount()).isEqualTo(0);
+    }
+
+
+    private Detection getDetection() {
+        Detection detection = new Detection();
+        detection.setType(DetectionType.TEXT);
+        detection.setText("Hello Spring Kafka!");
+        return detection;
     }
 }

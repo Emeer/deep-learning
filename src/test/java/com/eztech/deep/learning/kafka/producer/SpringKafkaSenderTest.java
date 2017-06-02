@@ -2,16 +2,19 @@ package com.eztech.deep.learning.kafka.producer;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.kafka.test.assertj.KafkaConditions.value;
 
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
 import com.eztech.deep.learning.kafka.AllSpringKafkaTests;
+import com.eztech.deep.learning.kafka.Detection;
+import com.eztech.deep.learning.kafka.DetectionType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +27,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 import org.springframework.kafka.listener.MessageListener;
 import org.springframework.kafka.listener.config.ContainerProperties;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.test.utils.ContainerTestUtils;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -39,22 +43,25 @@ public class SpringKafkaSenderTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpringKafkaSenderTest.class);
 
 
-    private KafkaMessageListenerContainer<String, String> container;
+    private KafkaMessageListenerContainer<String, Detection> container;
 
-    private BlockingQueue<ConsumerRecord<String, String>> records;
+    private BlockingQueue<ConsumerRecord<String, Detection>> records;
 
     @Autowired
     private Sender sender;
+
 
     @Before
     public void setUp() throws Exception {
         // set up the Kafka consumer properties
         Map<String, Object> consumerProperties =
                 KafkaTestUtils.consumerProps("sender_group", "false", AllSpringKafkaTests.embeddedKafka);
+        consumerProperties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
         // create a Kafka consumer factory
-        DefaultKafkaConsumerFactory<String, String> consumerFactory =
-                new DefaultKafkaConsumerFactory<String, String>(consumerProperties);
+        DefaultKafkaConsumerFactory<String, Detection> consumerFactory =
+                new DefaultKafkaConsumerFactory<>(consumerProperties, new StringDeserializer(),
+                        new JsonDeserializer<>(Detection.class));
 
         // set the topic that needs to be consumed
         ContainerProperties containerProperties =
@@ -67,12 +74,9 @@ public class SpringKafkaSenderTest {
         records = new LinkedBlockingQueue<>();
 
         // setup a Kafka message listener
-        container.setupMessageListener(new MessageListener<String, String>() {
-            @Override
-            public void onMessage(ConsumerRecord<String, String> record) {
-                LOGGER.debug("test-listener received message='{}'", record.toString());
-                records.add(record);
-            }
+        container.setupMessageListener((MessageListener<String, Detection>) record -> {
+            LOGGER.debug("test-listener received message='{}'", record.toString());
+            records.add(record);
         });
 
         // start the container and underlying message listener
@@ -82,20 +86,30 @@ public class SpringKafkaSenderTest {
                 AllSpringKafkaTests.embeddedKafka.getPartitionsPerTopic());
     }
 
+
     @After
     public void tearDown() {
         // stop the container
         container.stop();
     }
 
+
     @Test
     public void testSend() throws Exception {
         // send the message
-        String greeting = "Hello Spring Kafka Sender!";
-        sender.send(AllSpringKafkaTests.SENDER_TOPIC, greeting);
+
+        sender.send(AllSpringKafkaTests.SENDER_TOPIC, getDetection());
 
         // check that the message was received
-        assertThat(records.poll(10, TimeUnit.SECONDS)).has(value(greeting));
+        assertThat(records.poll(10, TimeUnit.SECONDS).value().getText()).isEqualTo(getDetection().getText());
+    }
+
+
+    private Detection getDetection() {
+        Detection detection = new Detection();
+        detection.setType(DetectionType.TEXT);
+        detection.setText("Hello Spring Kafka Sender!");
+        return detection;
     }
 
 }
