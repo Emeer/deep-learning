@@ -17,15 +17,15 @@ public class Receiver {
     private CountDownLatch latch = new CountDownLatch(1);
 
 
+    @KafkaListener(topics = "${topic.receiver}")
+    public void receive(Detection data) {
+        LOGGER.info("received message='{}'", data);
+        latch.countDown();
+    }
+
+
     public CountDownLatch getLatch() {
         return latch;
     }
 
-
-    @KafkaListener(topics = "${topic.receiver}")
-    public void receive(Detection message) {
-        LOGGER.info("received message='{}'", message);
-        latch.countDown();
-        message.setResult("Success");
-    }
 }
