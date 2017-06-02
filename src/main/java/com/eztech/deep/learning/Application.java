@@ -2,6 +2,7 @@ package com.eztech.deep.learning;
 
 import com.eztech.deep.learning.kafka.Detection;
 import com.eztech.deep.learning.kafka.DetectionType;
+import com.eztech.deep.learning.kafka.consumer.Receiver;
 import com.eztech.deep.learning.kafka.producer.Sender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +21,9 @@ public class Application implements CommandLineRunner {
     @Autowired
     private Sender sender;
 
+    @Autowired
+    private Receiver receiver;
+
     @Value("${topic.receiver}")
     private String topic;
 
@@ -32,10 +36,15 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Detection detection = new Detection();
-        detection.setText("test");
-        detection.setType(DetectionType.TEXT);
-        sender.send(topic, detection);
+
+        //Send message to detect content.
+        //Detection detection = new Detection();
+        //detection.setText("test");
+        //detection.setType(DetectionType.TEXT);
+        //sender.send(topic, detection);
+
+
+
     }
 }
 
