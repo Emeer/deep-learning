@@ -18,4 +18,6 @@ public class Detection {
 
     private String text;
 
+    private String result;
+
 }

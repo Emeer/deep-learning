@@ -26,5 +26,6 @@ public class Receiver {
     public void receive(Detection message) {
         LOGGER.info("received message='{}'", message);
         latch.countDown();
+        message.setResult("Success");
     }
 }
