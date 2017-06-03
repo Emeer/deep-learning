@@ -85,6 +85,8 @@
             </exclusions>
         </dependency>
 
+
+
         <!-- kafka -->
         <dependency>
             <groupId>org.springframework.kafka</groupId>
@@ -109,7 +111,16 @@
             <artifactId>deeplearning4j-ui_2.11</artifactId>
             <version>0.8.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.deeplearning4j</groupId>
+            <artifactId>dl4j-spark_2.11</artifactId>
+            <version>0.8.0_spark_2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.nd4j</groupId>
+            <artifactId>nd4j-native-platform</artifactId>
+            <version>0.8.0</version>
+        </dependency>
         <!-- Spring boot-->
 
         <dependency>

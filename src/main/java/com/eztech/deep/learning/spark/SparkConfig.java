@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * Spark Config for Application.
+ * <p>
  * Created by jia on 02/06/2017.
  */
 @Configuration
@@ -21,6 +23,8 @@ public class SparkConfig {
     @Value("${master.uri}")
     private String masterUri;
 
+    @Value("${hdfs.uri}")
+    private String hdfsConfig;
 
     @Bean
     public SparkConf sparkConf() {
@@ -28,6 +32,7 @@ public class SparkConfig {
         sparkConf.setAppName(appName);
         sparkConf.setSparkHome(sparkHome);
         sparkConf.setMaster(masterUri);
+        sparkConf.set("spark.hadoop.fs.defaultFS", hdfsConfig);
         return sparkConf;
     }
 
