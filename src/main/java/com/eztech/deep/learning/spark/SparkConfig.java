@@ -17,9 +17,6 @@ public class SparkConfig {
     @Value("${spring.application.name}")
     private String appName;
 
-    @Value("${spark.home}")
-    private String sparkHome;
-
     @Value("${master.uri}")
     private String masterUri;
 
@@ -30,9 +27,10 @@ public class SparkConfig {
     public SparkConf sparkConf() {
         SparkConf sparkConf = new SparkConf();
         sparkConf.setAppName(appName);
-        sparkConf.setSparkHome(sparkHome);
         sparkConf.setMaster(masterUri);
         sparkConf.set("spark.hadoop.fs.defaultFS", hdfsConfig);
+        sparkConf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer");
+        sparkConf.set("spark.kryo.registrator", "org.nd4j.Nd4jRegistrator");
         return sparkConf;
     }
 

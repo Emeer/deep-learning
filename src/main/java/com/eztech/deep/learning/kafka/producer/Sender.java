@@ -1,6 +1,7 @@
 package com.eztech.deep.learning.kafka.producer;
 
 import com.eztech.deep.learning.kafka.Detection;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,9 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 /**
  * Created by jia on 24/05/2017.
  */
+@Slf4j
 public class Sender {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Sender.class);
 
     @Autowired
     private KafkaTemplate<String, Detection> kafkaTemplate;
@@ -29,14 +30,14 @@ public class Sender {
 
             @Override
             public void onSuccess(SendResult<String, Detection> result) {
-                LOGGER.info("sent message='{}' with offset={}", message,
+                log.info("sent message='{}' with offset={}", message,
                         result.getRecordMetadata().offset());
             }
 
 
             @Override
             public void onFailure(Throwable ex) {
-                LOGGER.error("unable to send message='{}'", message, ex);
+                log.error("unable to send message='{}'", message, ex);
             }
         });
 
