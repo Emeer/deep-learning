@@ -2,6 +2,9 @@ package com.eztech.deep.learning.config;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.streaming.Durations;
+import org.apache.spark.streaming.api.java.JavaStreamingContext;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +26,7 @@ public class SparkConfig {
     @Value("${hdfs.uri}")
     private String hdfsConfig;
 
+
     @Bean
     public SparkConf sparkConf() {
         SparkConf sparkConf = new SparkConf();
@@ -38,6 +42,12 @@ public class SparkConfig {
     @Bean
     public JavaSparkContext javaSparkContext() {
         return new JavaSparkContext(sparkConf());
+    }
+
+
+    @Bean
+    public JavaStreamingContext javaStreamingContext() {
+        return new JavaStreamingContext(sparkConf(), Durations.seconds(1));
     }
 
 }

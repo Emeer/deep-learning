@@ -35,10 +35,10 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class DetectionService {
 
-    protected SparkDl4jMultiLayer sparkNet;
-
     @Autowired
     private JavaSparkContext javaSparkContext;
+
+    protected SparkDl4jMultiLayer sparkNet;
 
     @Parameter(names = "-batchSizePerWorker", description = "Number of examples to fit each worker with")
     private int batchSizePerWorker = 128;
