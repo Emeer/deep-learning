@@ -1,4 +1,4 @@
-package com.eztech.deep.learning.spark;
+package com.eztech.deep.learning.config;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;

@@ -1,8 +1,10 @@
-package com.eztech.deep.learning.kafka.producer;
+package com.eztech.deep.learning.config;
 
 import com.eztech.deep.learning.kafka.Detection;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+
+import com.eztech.deep.learning.kafka.producer.Sender;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
