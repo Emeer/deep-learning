@@ -1,8 +1,6 @@
 package com.eztech.deep.learning;
 
-import com.eztech.deep.learning.service.DetectionService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,10 +15,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Application implements CommandLineRunner {
 
 
-    @Autowired
-    private DetectionService detectionService;
-
-
     /** @param args  */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -29,7 +23,7 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        detectionService.train();
+
     }
 }
 
