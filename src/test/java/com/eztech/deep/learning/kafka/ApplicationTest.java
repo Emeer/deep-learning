@@ -1,6 +1,7 @@
 package com.eztech.deep.learning.kafka;
 
-import static org.assertj.core.api.Assertions.assertThat;
+
+import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.TimeUnit;
 
@@ -51,7 +52,7 @@ public class ApplicationTest {
 
         receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
         // check that the message was received
-        assertThat(receiver.getLatch().getCount()).isEqualTo(0);
+        assertEquals(receiver.getLatch().getCount(),0);
     }
 
 

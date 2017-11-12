@@ -1,7 +1,8 @@
 package com.eztech.deep.learning.kafka.producer;
 
 
-import static org.assertj.core.api.Assertions.assertThat;
+
+import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
@@ -101,7 +102,7 @@ public class SpringKafkaSenderTest {
         sender.send(AllSpringKafkaTests.SENDER_TOPIC, getDetection());
 
         // check that the message was received
-        assertThat(records.poll(10, TimeUnit.SECONDS).value().getText()).isEqualTo(getDetection().getText());
+        assertEquals(records.poll(10, TimeUnit.SECONDS).value().getText(), getDetection().getText());
     }
 
 

@@ -1,7 +1,7 @@
 package com.eztech.deep.learning.kafka.consumer;
 
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -78,7 +78,7 @@ public class SpringKafkaReceiverTest {
 
         receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
         // check that the message was received
-        assertThat(receiver.getLatch().getCount()).isEqualTo(0);
+        assertEquals(receiver.getLatch().getCount(), 0);
     }
 
 
