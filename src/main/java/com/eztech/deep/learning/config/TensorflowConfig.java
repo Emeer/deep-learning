@@ -23,10 +23,11 @@ public class TensorflowConfig {
     public Graph tfModelGraph(@Value("${tf.frozenModelPath}") String tfFrozenModelPath) throws IOException {
         Resource graphResource = getResource(tfFrozenModelPath);
 
-        Graph graph = new Graph();
-        graph.importGraphDef(IOUtils.toByteArray(graphResource.getInputStream()));
-        log.info("Loaded Tensorflow model");
-        return graph;
+        try (Graph graph = new Graph()) {
+            graph.importGraphDef(IOUtils.toByteArray(graphResource.getInputStream()));
+            log.info("Loaded Tensorflow model");
+            return graph;
+        }
     }
 
     private Resource getResource(@Value("${tf.frozenModelPath}") String tfFrozenModelPath) {

@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
  * <p>
  * Created by jia on 02/06/2017.
  */
-@Configuration
 public class SparkConfig {
 
     @Value("${spring.application.name}")
